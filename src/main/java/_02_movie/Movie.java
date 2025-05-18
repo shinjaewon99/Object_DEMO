@@ -1,5 +1,7 @@
 package _02_movie;
 
+import java.time.Duration;
+
 public class Movie {
     private String title;
     private Duration runningTime;
