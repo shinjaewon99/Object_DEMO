@@ -15,4 +15,44 @@ public class Movie {
     private MovieType movieType;
     private Money discountAmount;
     private double discountPercent;
+
+    public Money getFee() {
+        return fee;
+    }
+
+    public void setFee(final Money fee) {
+        this.fee = fee;
+    }
+
+    public List<DiscountCondition> getDiscountConditions() {
+        return discountConditions;
+    }
+
+    public void setDiscountConditions(final List<DiscountCondition> discountConditions) {
+        this.discountConditions = discountConditions;
+    }
+
+    public MovieType getMovieType() {
+        return movieType;
+    }
+
+    public void setMovieType(final MovieType movieType) {
+        this.movieType = movieType;
+    }
+
+    public Money getDiscountAmount() {
+        return discountAmount;
+    }
+
+    public void setDiscountAmount(final Money discountAmount) {
+        this.discountAmount = discountAmount;
+    }
+
+    public double getDiscountPercent() {
+        return discountPercent;
+    }
+
+    public void setDiscountPercent(final double discountPercent) {
+        this.discountPercent = discountPercent;
+    }
 }
