@@ -1,8 +1,5 @@
 package _04_movie_data_system;
 
-import _02_movie.DiscountCondition;
-import _02_movie.Money;
-
 import java.time.Duration;
 import java.util.List;
 
