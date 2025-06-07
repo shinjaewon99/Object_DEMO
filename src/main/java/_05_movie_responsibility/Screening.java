@@ -7,9 +7,16 @@ public class Screening {
     private int sequence;
     private LocalDateTime whenScreened;
 
-
     public Reservation reserve(Customer customer, int audienceCount) {
         return new Reservation(customer, this, calculateFee(audienceCount), audienceCount);
+    }
+
+    public LocalDateTime getWhenScreened() {
+        return whenScreened;
+    }
+
+    public int getSequence() {
+        return sequence;
     }
 
     private Money calculateFee(int audienceCount) {
