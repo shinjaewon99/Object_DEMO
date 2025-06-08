@@ -1,6 +1,6 @@
 package _05_movie_responsibility;
 
-public class SequenceCondition {
+public class SequenceCondition implements DiscountCondition {
 
     private int sequence;
 
