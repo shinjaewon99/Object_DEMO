@@ -6,4 +6,8 @@ public class Ticket {
     public Long getFee() {
         return fee;
     }
+
+    public Ticket(final Long fee) {
+        this.fee = fee;
+    }
 }
