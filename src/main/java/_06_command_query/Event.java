@@ -1,7 +1,5 @@
 package _06_command_query;
 
-package com.johngrib.objects._06_command_query;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 
