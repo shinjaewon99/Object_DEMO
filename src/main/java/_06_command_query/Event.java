@@ -14,21 +14,21 @@ public class Event {
         this.duration = duration;
     }
 
-    public boolean isSatisfied(RecurringSchedule schedule) {
+   /* public boolean isSatisfied(RecurringSchedule schedule) {
         if (from.getDayOfWeek() != schedule.getDayOfWeek()
                 || !from.toLocalDate().equals(schedule.getFrom())
                 || !duration.equals(schedule.getDuration())) {
             return false;
         }
         return true;
-    }
+    }*/
 
-    private void reschedule(RecurringSchedule schedule) {
+    /*private void reschedule(RecurringSchedule schedule) {
         from = LocalDateTime.of(from.toLocalDate().plusDays(daysDistance(schedule)), schedule.getFrom());
         duration = schedule.getDuration();
     }
 
     private long daysDistance(RecurringSchedule schedule) {
         return schedule.getDayOfWeek().getValue() - from.getDayOfWeek().getValue();
-    }
+    }*/
 }

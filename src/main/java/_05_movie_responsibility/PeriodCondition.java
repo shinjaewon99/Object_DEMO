@@ -2,6 +2,7 @@ package _05_movie_responsibility;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDateTime;
 
 public class PeriodCondition implements DiscountCondition {
     private DayOfWeek dayOfWeek;
@@ -16,7 +17,7 @@ public class PeriodCondition implements DiscountCondition {
 
     public boolean isSatisfiedBy(Screening screening) {
         return dayOfWeek.equals(screening.getWhenScreened().getDayOfWeek()) &&
-                startTime.compareTo(screening.getWhenScreened().toLocalTime()) <= 0 &&
-                endTime.compareTo(screening.getWhenScreened().toLocalTime()) >= 0;
+                startTime.compareTo(ChronoLocalDateTime.from(screening.getWhenScreened().toLocalTime())) <= 0 &&
+                endTime.compareTo(ChronoLocalDateTime.from(screening.getWhenScreened().toLocalTime())) >= 0;
     }
 }
