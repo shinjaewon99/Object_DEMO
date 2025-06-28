@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @DisplayName("Movie 테스트")
 public class movie_test {
@@ -72,7 +73,7 @@ public class movie_test {
     }
 
     @Test
-    @DisplayName("범죄도시_고정할인")
+    @DisplayName("범죄도시_할인_제외")
     void 범죄도시_할인_제외() {
         FIX_MOVIE_범죄도시 범죄도시_생성 = new FIX_MOVIE_범죄도시();
         Movie 범죄도시 = 범죄도시_생성.범죄도시_생성();
@@ -98,6 +99,27 @@ public class movie_test {
         for (Screening screening : screenings) {
             Money 계산된금액 = 범죄도시.calculateMovieFee(screening);
             Assertions.assertThat(계산된금액).isEqualTo(기본요금);
+        }
+    }
+
+    @Test
+    @DisplayName("번죄도시_순번할인")
+    void 범죄도시_순번할인() {
+        FIX_MOVIE_범죄도시 범죄도시_생성 = new FIX_MOVIE_범죄도시();
+        Movie 범죄도시 = 범죄도시_생성.범죄도시_생성();
+
+        final List<Integer> 영화_순번 = List.of(1, 10);
+
+
+        List<Screening> 할인되는_영화_순번들 = 영화_순번.stream()
+                .map(seq -> new Screening(범죄도시, seq, 목요일))
+                .collect(Collectors.toList());
+
+        Money 기본요금 = 범죄도시.getFee();
+
+        for (Screening 할인되는_영화_순번 : 할인되는_영화_순번들) {
+            Money 계산된금액 = 범죄도시.calculateMovieFee(할인되는_영화_순번);
+            Assertions.assertThat(계산된금액).isEqualTo(기본요금.minus(FIX_MONEY));
         }
     }
 }
