@@ -70,4 +70,34 @@ public class movie_test {
             Assertions.assertThat(계산된금액).isEqualTo(기본요금.minus(FIX_MONEY));
         }
     }
+
+    @Test
+    @DisplayName("범죄도시_고정할인")
+    void 범죄도시_할인_제외() {
+        FIX_MOVIE_범죄도시 범죄도시_생성 = new FIX_MOVIE_범죄도시();
+        Movie 범죄도시 = 범죄도시_생성.범죄도시_생성();
+
+        final List<LocalDateTime> 할인_조건에_맞지않는_상영_시작_시간들 = List.of(
+                // 월요일 시간 boundary 설정
+                월요일.withHour(9).withMinute(59),
+                월요일.withHour(12).withMinute(0),
+
+                // 목요일 시간 boundary 설정
+                목요일.withHour(9).withMinute(59),
+                목요일.withHour(20).withMinute(59),
+
+                // 그 외의 요일
+                토요일.withHour(10).withMinute(0)
+        );
+
+        List<Screening> screenings = 할인_조건에_맞지않는_상영_시작_시간들.stream()
+                .map(상영시간 -> new Screening(범죄도시, -1, 상영시간)).toList();
+
+        Money 기본요금 = 범죄도시.getFee();
+
+        for (Screening screening : screenings) {
+            Money 계산된금액 = 범죄도시.calculateMovieFee(screening);
+            Assertions.assertThat(계산된금액).isEqualTo(기본요금);
+        }
+    }
 }
