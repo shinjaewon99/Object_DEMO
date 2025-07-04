@@ -7,8 +7,7 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class movie_data_system {
     private final LocalTime 할인_시작_시간 = LocalTime.of(9, 0);
@@ -34,7 +33,7 @@ public class movie_data_system {
     private DiscountCondition createPeriodDiscountCondition() {
         return new DiscountCondition(
                 DiscountConditionType.PERIOD,
-                1,
+                27,
                 할인_가능_요일,
                 할인_시작_시간,
                 할인_종료_시간
@@ -80,6 +79,21 @@ public class movie_data_system {
             for (DayOfWeek 요일 : 요일들) {
                 assertFalse(condition.isDiscountable(요일, 시간));
             }
+        }
+    }
+
+    @Test
+    @DisplayName("순번 예외")
+    void valid_sequence() {
+        DiscountCondition condition = createPeriodDiscountCondition();
+
+        List<Integer> 순번들 = List.of(
+                할인_가능_순번,
+                할인_불가능_순번
+        );
+
+        for (int 순번 : 순번들) {
+            assertThrows(IllegalArgumentException.class, () -> condition.isDiscountable(순번));
         }
     }
 }
