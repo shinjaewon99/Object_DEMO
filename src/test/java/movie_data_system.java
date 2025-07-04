@@ -7,6 +7,7 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class movie_data_system {
@@ -56,6 +57,29 @@ public class movie_data_system {
 
         for (LocalTime 시간 : 테스트_시간들) {
             assertTrue(condition.isDiscountable(할인_조건에_맞는_요일, 시간));
+        }
+    }
+
+    @Test
+    @DisplayName("할인조건에 맞는 시간이 주어지고, 할인 조건에 맞지않는 요일이 주어지면")
+    void valid_time_Invalid_day() {
+        DiscountCondition condition = createPeriodDiscountCondition();
+
+        List<LocalTime> 테스트_시간들 = List.of(
+                할인_시작_시간.minusMinutes(1),
+                할인_시작_시간,
+                할인_시작_시간.plusSeconds(1),
+                할인_종료_시간.minusSeconds(1),
+                할인_종료_시간,
+                할인_종료_시간.plusMinutes(1)
+        );
+
+        final List<DayOfWeek> 요일들 = 할인_되지_않는_요일들;
+
+        for (LocalTime 시간 : 테스트_시간들) {
+            for (DayOfWeek 요일 : 요일들) {
+                assertFalse(condition.isDiscountable(요일, 시간));
+            }
         }
     }
 }
