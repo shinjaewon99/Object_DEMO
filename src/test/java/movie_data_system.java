@@ -1,5 +1,6 @@
 import _04_movie_data_system.DiscountCondition;
 import _04_movie_data_system.DiscountConditionType;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -33,6 +34,16 @@ public class movie_data_system {
     private DiscountCondition createPeriodDiscountCondition() {
         return new DiscountCondition(
                 DiscountConditionType.PERIOD,
+                27,
+                할인_가능_요일,
+                할인_시작_시간,
+                할인_종료_시간
+        );
+    }
+
+    private DiscountCondition createSequenceDiscountCondition() {
+        return new DiscountCondition(
+                DiscountConditionType.SEQUENCE,
                 27,
                 할인_가능_요일,
                 할인_시작_시간,
@@ -95,5 +106,25 @@ public class movie_data_system {
         for (int 순번 : 순번들) {
             assertThrows(IllegalArgumentException.class, () -> condition.isDiscountable(순번));
         }
+    }
+
+    @Test
+    @DisplayName("할인 조건에 맞는 순번이 주어지면")
+    void valid_discount_sequence() {
+        DiscountCondition condition = createSequenceDiscountCondition();
+
+        int sequence = condition.getSequence();
+
+        Assertions.assertThat(condition.isDiscountable(sequence)).isTrue();
+    }
+
+    @Test
+    @DisplayName("할인 조건에 맞지않는 순번이 주어지면")
+    void valid_not_discount_sequence() {
+        DiscountCondition condition = createSequenceDiscountCondition();
+
+        int sequence = 할인_불가능_순번;
+
+        Assertions.assertThat(condition.isDiscountable(sequence)).isFalse();
     }
 }
